@@ -18,6 +18,9 @@ license: gpl2
 
 Dj_CMS_Hooks::addAction( 'app.page.body.start', 'dj_app_social_pages_content' );
 
+// no need for a theme
+Dj_CMS_Hooks::addFilter( 'app.core.themes.load_theme', Dj_CMS_Hooks::RETURN_FALSE );
+
 function dj_app_social_pages_content()
 {
 //    echo 'Hello World' . __METHOD__;
