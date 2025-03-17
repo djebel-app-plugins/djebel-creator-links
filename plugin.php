@@ -16,12 +16,20 @@ text_domain: djebe-creator-links
 license: gpl2
 */
 
-Dj_CMS_Hooks::addAction( 'app.page.body.start', 'dj_app_social_pages_content' );
+Dj_CMS_Hooks::addAction( 'app.page.content.render', 'dj_app_social_links_content' );
 
 // no need for a theme
 Dj_CMS_Hooks::addFilter( 'app.core.themes.load_theme', Dj_CMS_Hooks::RETURN_FALSE );
 
-function dj_app_social_pages_content()
+function dj_app_social_links_content()
 {
-//    echo 'Hello World' . __METHOD__;
+    $social_networks_arr = [
+        'twitter' => [
+            'handle' => 'orbisius',
+            'url' => 'https://twitter.com/orbisius',
+        ],
+    ];
+
+    $tpl = __DIR__ . '/templates/default/index.php';
+    require $tpl;
 }
