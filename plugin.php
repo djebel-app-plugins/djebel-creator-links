@@ -12,7 +12,7 @@ tested_with_dj_cms_ver: 1.0.0
 author_name: Svetoslav Marinov (Slavi)
 company_name: Orbisius
 author_uri: https://orbisius.com
-text_domain: hello-world
+text_domain: djebe-creator-links
 license: gpl2
 */
 
