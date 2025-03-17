@@ -16,20 +16,45 @@ text_domain: djebe-creator-links
 license: gpl2
 */
 
-Dj_CMS_Hooks::addAction( 'app.page.content.render', 'dj_app_social_links_content' );
+$obj = Djebel_Plugin_Creator_Links::getInstance();
+Dj_CMS_Hooks::addAction( 'app.page.content.render', [ $obj, 'renderLinks'] );
 
 // no need for a theme
 Dj_CMS_Hooks::addFilter( 'app.core.themes.load_theme', Dj_CMS_Hooks::RETURN_FALSE );
 
-function dj_app_social_links_content()
-{
-    $social_networks_arr = [
-        'twitter' => [
-            'handle' => 'orbisius',
-            'url' => 'https://twitter.com/orbisius',
-        ],
-    ];
+class Djebel_Plugin_Creator_Links {
+    function renderLinks()
+    {
+        $social_networks_arr = [
+            'twitter' => [
+                'handle' => 'orbisius',
+                'url' => 'https://twitter.com/orbisius',
+            ],
+        ];
 
-    $tpl = __DIR__ . '/templates/default/index.php';
-    require $tpl;
+        $tpl = __DIR__ . '/templates/default/index.php';
+        require $tpl;
+    }
+
+    public function renderLinkedIn()
+    {
+
+    }
+
+    /**
+     * Singleton pattern i.e. we have only one instance of this obj
+     * @staticvar static $instance
+     * @return static
+     */
+    public static function getInstance() {
+        static $instance = null;
+
+        // This will make the calling class to be instantiated.
+        // no need each sub class to define this method.
+        if (is_null($instance)) {
+            $instance = new static();
+        }
+
+        return $instance;
+    }
 }
