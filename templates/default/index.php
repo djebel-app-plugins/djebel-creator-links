@@ -126,7 +126,7 @@
     <?php Dj_App_Hooks::doAction( 'app.page.html.body.start' ); ?>
 
     <?php
-    $ctx = Dj_App_Util::data('plugin_social_networks_ctx');
+    $ctx = Dj_App_Util::data('plugin_social_links_data');
     $social_networks = $ctx['social_networks'];
     $profile_name = $ctx['profile_name'];
     $profile_image = $ctx['profile_image'];
@@ -136,10 +136,14 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="text-center mt-5">
-                    <img src="<?php echo htmlspecialchars($profile_image); ?>" 
+                    <?php if (!empty($profile_image)) : ?>
+                        <img src="<?php echo htmlspecialchars($profile_image); ?>"
                          alt="Profile Picture"
-                         class="rounded-circle mb-3 oapp-profile-pic">
+                         class="rounded-circle mb-3 oapp-profile-pic" />
+                    <?php endif; ?>
+
                     <h1 class="mb-4 oapp-name"><?php echo htmlspecialchars($profile_name); ?></h1>
+
                     <div class="d-grid gap-3">
                         <?php if (empty($social_networks)) : ?>
                             <p>No social networks enabled</p>

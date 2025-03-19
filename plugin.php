@@ -62,48 +62,44 @@ class Djebel_Plugin_Creator_Links {
 
     public function renderLinks()
     {
-        // Load social network configuration
-        $options = Dj_App_Options::getInstance();
+        $options_obj = Dj_App_Options::getInstance();
+        
+        $social_networks = [];
+        $cfg_social_networks = $options_obj->get('social_networks');
+        $cfg_social_networks = empty($cfg_social_networks) ? [] : (array) $cfg_social_networks;
 
         // Get enabled social networks and their URLs
-        $social_networks = [];
-
-        $cfg_social_networks = $options->get('social_networks', []);
-
-        foreach ($this->social_networks_arr as $network => $data) {
-            if (empty($cfg_social_networks[$network])) {
+        foreach ($cfg_social_networks as $network => $config) {
+            // Skip if network definition doesn't exist in our SVG map
+            if (empty($this->social_networks_arr[$network])) {
                 continue;
             }
 
-            if (isset($cfg_social_networks[$network]['enabled']) && empty($cfg_social_networks[$network]['enabled'])) {
+            // Skip if not enabled or no URL provided
+            if (empty($config['url']) || (isset($config['enabled']) && empty($config['enabled']))) {
                 continue;
             }
 
-            if (empty($cfg_social_networks[$network]['url'])) {
-                continue;
-            }
-
-            $url = $cfg_social_networks[$network]['url'];
-            $social_networks[$network] = array_merge($data, [ 'url' => $url, ]);
+            // Merge configuration with SVG data
+            $social_networks[$network] = array_merge(
+                $this->social_networks_arr[$network],
+                ['url' => $config['url']],
+            );
         }
 
-        // Pass data to template
-        $ctx = [
+        $social_profile_data = $options_obj->get('social_networks_profile');
+
+        $template_data = [
             'social_networks' => $social_networks,
-            'profile_name' => $options->get('social_networks.profile_name', 'John Doe'),
-            'profile_image' => $options->get('social_networks.profile_image', 'https://via.placeholder.com/150'),
+            'profile_name' => empty($social_profile_data['profile_name']) ? 'John Doe' : $social_profile_data['profile_name'],
+            'profile_image' => empty($social_profile_data['profile_image']) ? 'https://via.placeholder.com/150' : $social_profile_data['profile_image'],
         ];
 
-        Dj_App_Util::data('plugin_social_networks_ctx', $ctx);
+        Dj_App_Util::data('plugin_social_links_data', $template_data);
 
+        // Include template with explicit variable scope
         $tpl = __DIR__ . '/templates/default/index.php';
-
-        require $tpl;
-    }
-
-    public function renderLinkedIn()
-    {
-
+        require_once $tpl;
     }
 
     /**
