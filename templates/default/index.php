@@ -125,61 +125,43 @@
 <body class="oapp-body oapp-option-1">
     <?php Dj_App_Hooks::doAction( 'app.page.html.body.start' ); ?>
 
+    <?php
+    $ctx = Dj_App_Util::data('plugin_social_networks_ctx');
+    $social_networks = $ctx['social_networks'];
+    $profile_name = $ctx['profile_name'];
+    $profile_image = $ctx['profile_image'];
+    ?>
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="text-center mt-5">
-                    <img src="https://via.placeholder.com/150" alt="Profile Picture"
+                    <img src="<?php echo htmlspecialchars($profile_image); ?>" 
+                         alt="Profile Picture"
                          class="rounded-circle mb-3 oapp-profile-pic">
-                    <h1 class="mb-4 oapp-name">John Doe</h1>
+                    <h1 class="mb-4 oapp-name"><?php echo htmlspecialchars($profile_name); ?></h1>
                     <div class="d-grid gap-3">
-                        <a href="https://facebook.com/johndoe" class="btn btn-lg oapp-social-btn oapp-facebook-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-                            </svg>
-                            Facebook
-                        </a>
-                        <a href="https://linkedin.com/in/johndoe" class="btn btn-lg oapp-social-btn oapp-linkedin-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                                <rect x="2" y="9" width="4" height="12"></rect>
-                                <circle cx="4" cy="4" r="2"></circle>
-                            </svg>
-                            LinkedIn
-                        </a>
-                        <a href="https://twitter.com/johndoe" class="btn btn-lg oapp-social-btn oapp-twitter-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
-                            </svg>
-                            Twitter
-                        </a>
-                        <a href="mailto:john@example.com" class="btn btn-lg oapp-social-btn oapp-email-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <rect width="20" height="16" x="2" y="4" rx="2"></rect>
-                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-                            </svg>
-                            Email
-                        </a>
-                        <a href="https://johndoe.com" class="btn btn-lg oapp-social-btn oapp-website-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
-                                <path d="M2 12h20"></path>
-                            </svg>
-                            Website
-                        </a>
-                        <a href="https://tiktok.com/@johndoe" class="btn btn-lg oapp-social-btn oapp-tiktok-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
-                            </svg>
-                            TikTok
-                        </a>
+                        <?php if (empty($social_networks)) : ?>
+                            <p>No social networks enabled</p>
+                        <?php endif; ?>
+
+                        <?php foreach ($social_networks as $network => $data): ?>
+                            <a href="<?php echo htmlspecialchars($data['url']); ?>" 
+                               class="btn btn-lg oapp-social-btn oapp-<?php echo $network; ?>-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" 
+                                     width="24" 
+                                     height="24" 
+                                     viewBox="0 0 24 24" 
+                                     fill="none"
+                                     stroke="currentColor" 
+                                     stroke-width="2" 
+                                     stroke-linecap="round" 
+                                     stroke-linejoin="round">
+                                    <?php echo $data['svg']; ?>
+                                </svg>
+                                <?php echo ucfirst($network); ?>
+                            </a>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </div>
@@ -189,4 +171,3 @@
     <?php Dj_App_Hooks::doAction( 'app.page.html.body.end' ); ?>
 </body>
 </html>
-

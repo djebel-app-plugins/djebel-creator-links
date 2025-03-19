@@ -23,16 +23,81 @@ Dj_App_Hooks::addAction( 'app.page.content.render', [ $obj, 'renderLinks'] );
 Dj_App_Hooks::addFilter( 'app.core.themes.load_theme', Dj_App_Hooks::RETURN_FALSE );
 
 class Djebel_Plugin_Creator_Links {
-    function renderLinks()
+    /**
+     * Stores SVG icons for social networks
+     * @var array
+     */
+    protected $social_networks_arr = [
+        'facebook' => [
+            'svg' => '<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>',
+            'color' => '#1877f2',
+            'hover_color' => '#1664d9',
+        ],
+        'linkedin' => [
+            'svg' => '<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>',
+            'color' => '#0077b5',
+            'hover_color' => '#006399',
+        ],
+        'twitter' => [
+            'svg' => '<path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>',
+            'color' => '#1da1f2',
+            'hover_color' => '#1a8cd8',
+        ],
+        'email' => [
+            'svg' => '<rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>',
+            'color' => '#ea4335',
+            'hover_color' => '#d33828',
+        ],
+        'website' => [
+            'svg' => '<circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path>',
+            'color' => '#333333',
+            'hover_color' => '#262626',
+        ],
+        'tiktok' => [
+            'svg' => '<path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>',
+            'color' => '#000000',
+            'hover_color' => '#1a1a1a',
+        ],
+    ];
+
+    public function renderLinks()
     {
-        $social_networks_arr = [
-            'twitter' => [
-                'handle' => 'orbisius',
-                'url' => 'https://twitter.com/orbisius',
-            ],
+        // Load social network configuration
+        $options = Dj_App_Options::getInstance();
+
+        // Get enabled social networks and their URLs
+        $social_networks = [];
+
+        $cfg_social_networks = $options->get('social_networks', []);
+
+        foreach ($this->social_networks_arr as $network => $data) {
+            if (empty($cfg_social_networks[$network])) {
+                continue;
+            }
+
+            if (isset($cfg_social_networks[$network]['enabled']) && empty($cfg_social_networks[$network]['enabled'])) {
+                continue;
+            }
+
+            if (empty($cfg_social_networks[$network]['url'])) {
+                continue;
+            }
+
+            $url = $cfg_social_networks[$network]['url'];
+            $social_networks[$network] = array_merge($data, [ 'url' => $url, ]);
+        }
+
+        // Pass data to template
+        $ctx = [
+            'social_networks' => $social_networks,
+            'profile_name' => $options->get('social_networks.profile_name', 'John Doe'),
+            'profile_image' => $options->get('social_networks.profile_image', 'https://via.placeholder.com/150'),
         ];
 
+        Dj_App_Util::data('plugin_social_networks_ctx', $ctx);
+
         $tpl = __DIR__ . '/templates/default/index.php';
+
         require $tpl;
     }
 
