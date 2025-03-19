@@ -120,10 +120,10 @@
             }
         }
     </style>
-    <?php Dj_CMS_Hooks::doAction( 'app.page.html.head' ); ?>
+    <?php Dj_App_Hooks::doAction( 'app.page.html.head' ); ?>
 </head>
 <body class="oapp-body oapp-option-1">
-    <?php Dj_CMS_Hooks::doAction( 'app.page.html.body.start' ); ?>
+    <?php Dj_App_Hooks::doAction( 'app.page.html.body.start' ); ?>
 
     <div class="container">
         <div class="row justify-content-center">
@@ -186,7 +186,7 @@
         </div>
     </div>
 
-    <?php Dj_CMS_Hooks::doAction( 'app.page.html.body.end' ); ?>
+    <?php Dj_App_Hooks::doAction( 'app.page.html.body.end' ); ?>
 </body>
 </html>
 

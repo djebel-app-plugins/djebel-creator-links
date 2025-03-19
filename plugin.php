@@ -17,10 +17,10 @@ license: gpl2
 */
 
 $obj = Djebel_Plugin_Creator_Links::getInstance();
-Dj_CMS_Hooks::addAction( 'app.page.content.render', [ $obj, 'renderLinks'] );
+Dj_App_Hooks::addAction( 'app.page.content.render', [ $obj, 'renderLinks'] );
 
 // no need for a theme
-Dj_CMS_Hooks::addFilter( 'app.core.themes.load_theme', Dj_CMS_Hooks::RETURN_FALSE );
+Dj_App_Hooks::addFilter( 'app.core.themes.load_theme', Dj_App_Hooks::RETURN_FALSE );
 
 class Djebel_Plugin_Creator_Links {
     function renderLinks()
