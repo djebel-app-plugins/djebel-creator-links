@@ -120,11 +120,8 @@
             }
         }
     </style>
-    <?php Dj_App_Hooks::doAction( 'app.page.html.head' ); ?>
 </head>
 <body class="oapp-body oapp-option-1">
-    <?php Dj_App_Hooks::doAction( 'app.page.html.body.start' ); ?>
-
     <?php
     $ctx = Dj_App_Util::data('plugin_social_links_data');
     $social_networks = $ctx['social_networks'];
@@ -171,7 +168,5 @@
             </div>
         </div>
     </div>
-
-    <?php Dj_App_Hooks::doAction( 'app.page.html.body.end' ); ?>
 </body>
 </html>
