@@ -97,7 +97,6 @@ class Djebel_Plugin_Creator_Links {
 
         Dj_App_Util::data('plugin_social_links_data', $template_data);
 
-        // Include template with explicit variable scope
         $tpl = __DIR__ . '/templates/default/index.php';
         require_once $tpl;
     }
