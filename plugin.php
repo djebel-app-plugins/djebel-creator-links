@@ -48,7 +48,7 @@ class Djebel_Plugin_Creator_Links {
             'color' => '#ea4335',
             'hover_color' => '#d33828',
         ],
-        'website' => [
+        'site' => [
             'svg' => '<circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path>',
             'color' => '#333333',
             'hover_color' => '#262626',
