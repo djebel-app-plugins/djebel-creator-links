@@ -1,9 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creator's Social Links</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <!--    <link href="styles.css" rel="stylesheet">-->
     <style>
@@ -120,8 +114,7 @@
             }
         }
     </style>
-</head>
-<body class="oapp-body oapp-option-1">
+
     <?php
     $ctx = Dj_App_Util::data('plugin_social_links_data');
     $social_networks = $ctx['social_networks'];
@@ -168,5 +161,3 @@
             </div>
         </div>
     </div>
-</body>
-</html>

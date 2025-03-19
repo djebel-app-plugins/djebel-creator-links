@@ -19,9 +19,6 @@ license: gpl2
 $obj = Djebel_Plugin_Creator_Links::getInstance();
 Dj_App_Hooks::addAction( 'app.page.content.render', [ $obj, 'renderLinks'] );
 
-// no need for a theme
-Dj_App_Hooks::addFilter( 'app.core.themes.load_theme', Dj_App_Hooks::RETURN_FALSE );
-
 class Djebel_Plugin_Creator_Links {
     /**
      * Stores SVG icons for social networks
