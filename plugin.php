@@ -1,5 +1,6 @@
 <?php
 /*
+plugin_id: djebel-creator-links
 plugin_name: Djebel Creator Links
 plugin_uri: https://djebel.com/plugins/create-links
 description: allows content creators to create social links to their social profiles.
@@ -12,7 +13,7 @@ tested_with_dj_app_ver: 1.0.0
 author_name: Svetoslav Marinov (Slavi)
 company_name: Orbisius
 author_uri: https://orbisius.com
-text_domain: djebe-creator-links
+text_domain: djebel-creator-links
 license: gpl2
 */
 
