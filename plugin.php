@@ -104,8 +104,8 @@ class Djebel_Plugin_Creator_Links {
 
         $template_data = [
             'social_networks' => $social_networks,
-            'full_name' => empty($social_profile_data['full_name']) ? 'John Doe' : $social_profile_data['full_name'],
-            'profile_image_url' => empty($social_profile_data['profile_image_url']) ? 'https://via.placeholder.com/150' : $social_profile_data['profile_image_url'],
+            'full_name' => empty($social_profile_data['full_name']) ? '' : $social_profile_data['full_name'],
+            'profile_image_url' => empty($social_profile_data['profile_image_url']) ? '' : $social_profile_data['profile_image_url'],
         ];
 
         Dj_App_Util::data('plugin_social_links_data', $template_data);
