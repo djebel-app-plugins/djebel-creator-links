@@ -118,21 +118,23 @@
     <?php
     $ctx = Dj_App_Util::data('plugin_social_links_data');
     $social_networks = $ctx['social_networks'];
-    $profile_name = $ctx['profile_name'];
-    $profile_image = $ctx['profile_image'];
+    $full_name = empty($ctx['full_name']) ? '' : $ctx['full_name'];
+    $profile_image_url = empty($ctx['profile_image_url']) ? '' : $ctx['profile_image_url'];
     ?>
 
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="text-center mt-5">
-                    <?php if (!empty($profile_image)) : ?>
-                        <img src="<?php echo htmlspecialchars($profile_image); ?>"
+                    <?php if (!empty($profile_image_url)) : ?>
+                        <img src="<?php echo htmlspecialchars($profile_image_url); ?>"
                          alt="Profile Picture"
                          class="rounded-circle mb-3 oapp-profile-pic" />
                     <?php endif; ?>
 
-                    <h1 class="mb-4 oapp-name"><?php echo htmlspecialchars($profile_name); ?></h1>
+                    <?php if (!empty($full_name)) : ?>
+                        <h1 class="mb-4 oapp-name"><?php echo htmlspecialchars($full_name); ?></h1>
+                    <?php endif; ?>
 
                     <div class="d-grid gap-3">
                         <?php if (empty($social_networks)) : ?>
