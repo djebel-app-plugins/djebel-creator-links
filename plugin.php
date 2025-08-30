@@ -19,6 +19,7 @@ license: gpl2
 
 $obj = Djebel_Plugin_Creator_Links::getInstance();
 Dj_App_Hooks::addAction( 'app.page.content.render', [ $obj, 'renderLinks'] );
+Dj_App_Hooks::addAction( 'app.page.html.head', [ $obj, 'outputCSS' ], 100 );
 
 class Djebel_Plugin_Creator_Links {
     /**
@@ -112,6 +113,36 @@ class Djebel_Plugin_Creator_Links {
 
         $tpl = __DIR__ . '/templates/default/index.php';
         require_once $tpl;
+    }
+
+    /**
+     * Outputs CSS for social network buttons in the header
+     */
+    public function outputCSS()
+    {
+        $options_obj = Dj_App_Options::getInstance();
+        $cfg_social_networks = $options_obj->get("social_networks");
+        $cfg_social_networks = empty($cfg_social_networks) ? [] : (array) $cfg_social_networks;
+
+        echo "<style>\n";
+        echo ".oapp-social-btn { color: white !important; }\n";
+        
+        // Generate CSS for each enabled social network
+        foreach ($cfg_social_networks as $network => $config) {
+            if (empty($this->social_networks_arr[$network])) {
+                continue;
+            }
+            
+            if (empty($config["url"]) || (isset($config["enabled"]) && empty($config["enabled"]))) {
+                continue;
+            }
+
+            $network_data = $this->social_networks_arr[$network];
+            printf(".oapp-social-btn[class*='%s'] { background-color: %s; }\n", $network, $network_data["color"]);
+            printf(".oapp-social-btn[class*='%s']:hover { background-color: %s; }\n", $network, $network_data["hover_color"]);
+        }
+        
+        echo "</style>\n";
     }
 
     /**

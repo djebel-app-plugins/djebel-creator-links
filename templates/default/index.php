@@ -68,55 +68,10 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        /* Social network button colors using CSS custom properties */
-        :root {
-            --facebook-bg: #1877f2;
-            --facebook-hover: #1664d9;
-            --linkedin-bg: #0077b5;
-            --linkedin-hover: #006399;
-            --twitter-bg: #1da1f2;
-            --twitter-hover: #1a8cd8;
-            --email-bg: #ea4335;
-            --email-hover: #d33828;
-            --website-bg: #333333;
-            --website-hover: #262626;
-            --tiktok-bg: #000000;
-            --tiktok-hover: #1a1a1a;
-            --youtube-bg: #ff0000;
-            --youtube-hover: #cc0000;
-            --instagram-bg: #e4405f;
-            --instagram-hover: #c13584;
-        }
-
-        /* Base social button styling */
+        /* Global social button styling - automatically applies to all networks */
         .oapp-social-btn {
             color: white !important;
         }
-
-        /* Individual network styling using CSS custom properties */
-        .oapp-facebook-btn { background-color: var(--facebook-bg); }
-        .oapp-facebook-btn:hover { background-color: var(--facebook-hover); }
-
-        .oapp-linkedin-btn { background-color: var(--linkedin-bg); }
-        .oapp-linkedin-btn:hover { background-color: var(--linkedin-hover); }
-
-        .oapp-twitter-btn { background-color: var(--twitter-bg); }
-        .oapp-twitter-btn:hover { background-color: var(--twitter-hover); }
-
-        .oapp-email-btn { background-color: var(--email-bg); }
-        .oapp-email-btn:hover { background-color: var(--email-hover); }
-
-        .oapp-website-btn { background-color: var(--website-bg); }
-        .oapp-website-btn:hover { background-color: var(--website-hover); }
-
-        .oapp-tiktok-btn { background-color: var(--tiktok-bg); }
-        .oapp-tiktok-btn:hover { background-color: var(--tiktok-hover); }
-
-        .oapp-youtube-btn { background-color: var(--youtube-bg); }
-        .oapp-youtube-btn:hover { background-color: var(--youtube-hover); }
-
-        .oapp-instagram-btn { background-color: var(--instagram-bg); }
-        .oapp-instagram-btn:hover { background-color: var(--instagram-hover); }
 
         @media (max-width: 768px) {
             .oapp-social-btn {
