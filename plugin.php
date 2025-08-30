@@ -61,6 +61,16 @@ class Djebel_Plugin_Creator_Links {
             'color' => '#000000',
             'hover_color' => '#1a1a1a',
         ],
+        'youtube' => [
+            'svg' => '<path d="M2 8s1.5-2 2.5-3S8 4 8 4s.5.5 1 1 1.5 1 2.5 2S12 8 12 8s-1.5 2-2.5 3S8 12 8 12s-.5-.5-1-1-1.5-1-2.5-2S4 8 4 8z"></path><path d="M9.5 8l1.5 1.5L9.5 11"></path>',
+            'color' => '#ff0000',
+            'hover_color' => '#cc0000',
+        ],
+        'instagram' => [
+            'svg' => '<rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>',
+            'color' => '#e4405f',
+            'hover_color' => '#c13584',
+        ],
     ];
 
     public function renderLinks()
