@@ -104,7 +104,7 @@ class Djebel_Plugin_Creator_Links {
 
         $template_data = [
             'social_networks' => $social_networks,
-            'profile_name' => empty($social_profile_data['full_name']) ? 'John Doe' : $social_profile_data['full_name'],
+            'full_name' => empty($social_profile_data['full_name']) ? 'John Doe' : $social_profile_data['full_name'],
             'profile_image_url' => empty($social_profile_data['profile_image_url']) ? 'https://via.placeholder.com/150' : $social_profile_data['profile_image_url'],
         ];
 
