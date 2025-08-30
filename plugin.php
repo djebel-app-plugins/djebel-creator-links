@@ -77,11 +77,11 @@ class Djebel_Plugin_Creator_Links {
     public function renderLinks()
     {
         $options_obj = Dj_App_Options::getInstance();
-        
+
+        $ctx = [];
         $social_networks = [];
         $cfg_social_networks = $options_obj->get('social_networks');
         $cfg_social_networks = empty($cfg_social_networks) ? [] : (array) $cfg_social_networks;
-
         // Get enabled social networks and their URLs
         foreach ($cfg_social_networks as $network => $config) {
             // Skip if network definition doesn't exist in our SVG map
@@ -108,6 +108,8 @@ class Djebel_Plugin_Creator_Links {
             'full_name' => empty($social_networks_data['full_name']) ? '' : $social_networks_data['full_name'],
             'profile_image_url' => empty($social_networks_data['profile_image_url']) ? '' : $social_networks_data['profile_image_url'],
         ];
+
+        $template_data = Dj_App_Hooks::applyFilter( 'app.plugins.djebel-creator-links.template_data', $template_data, $ctx );
 
         Dj_App_Util::data('plugin_social_links_data', $template_data);
 
