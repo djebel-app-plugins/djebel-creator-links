@@ -101,12 +101,12 @@ class Djebel_Plugin_Creator_Links {
             );
         }
 
-        $social_profile_data = $options_obj->get('social_networks_profile');
+        $social_networks_data = $options_obj->get('social_networks_data');
 
         $template_data = [
             'social_networks' => $social_networks,
-            'full_name' => empty($social_profile_data['full_name']) ? '' : $social_profile_data['full_name'],
-            'profile_image_url' => empty($social_profile_data['profile_image_url']) ? '' : $social_profile_data['profile_image_url'],
+            'full_name' => empty($social_networks_data['full_name']) ? '' : $social_networks_data['full_name'],
+            'profile_image_url' => empty($social_networks_data['profile_image_url']) ? '' : $social_networks_data['profile_image_url'],
         ];
 
         Dj_App_Util::data('plugin_social_links_data', $template_data);
