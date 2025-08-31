@@ -117,7 +117,8 @@
                         <?php endif; ?>
 
                         <?php foreach ($social_networks as $network => $data): ?>
-                            <a href="<?php echo htmlspecialchars($data['url']); ?>" 
+                            <a href="<?php echo htmlspecialchars($data['url']); ?>"
+                               target="_blank"
                                class="oapp-social-btn oapp-<?php echo $network; ?>-btn">
                                 <svg xmlns="http://www.w3.org/2000/svg" 
                                      width="24" 
