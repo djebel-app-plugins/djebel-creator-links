@@ -20,21 +20,21 @@
             text-align: center;
         }
 
-        .oapp-profile-section {
-            margin-top: 3rem;
-        }
+        /*.oapp-profile-section {
+            margin-top: 1rem;
+        }*/
 
         .oapp-social-grid {
             display: flex;
             flex-direction: column;
             gap: 1rem;
-            margin-top: 2rem;
+            margin-top: 1rem;
         }
 
         .oapp-name {
             font-size: 2.5rem;
             color: #333;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
         }
 
         .oapp-social-btn {
