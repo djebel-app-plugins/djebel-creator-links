@@ -87,8 +87,9 @@
 
     <?php
     $ctx = Dj_App_Util::data('plugin_social_links_data');
-    $social_networks = $ctx['social_networks'];
+    $bio = empty($ctx['bio']) ? '' : $ctx['bio'];
     $full_name = empty($ctx['full_name']) ? '' : $ctx['full_name'];
+    $social_networks = $ctx['social_networks'];
     $profile_image_url = empty($ctx['profile_image_url']) ? '' : $ctx['profile_image_url'];
     ?>
 
@@ -103,7 +104,11 @@
                     <?php endif; ?>
 
                     <?php if (!empty($full_name)) : ?>
-                        <h1 class="mb-4 oapp-name"><?php echo htmlspecialchars($full_name); ?></h1>
+                        <h3 class="mb-4 oapp-name"><?php echo htmlspecialchars($full_name); ?></h3>
+                    <?php endif; ?>
+
+                    <?php if (!empty($bio)) : ?>
+                        <div class="oapp-bio"><?php echo htmlspecialchars($bio); ?></div>
                     <?php endif; ?>
 
                     <div class="oapp-social-grid">

@@ -104,8 +104,9 @@ class Djebel_Plugin_Creator_Links {
         $social_networks_data = $options_obj->get('social_networks_data');
 
         $template_data = [
-            'social_networks' => $social_networks,
+            'bio' => empty($social_networks_data['bio']) ? '' : $social_networks_data['bio'],
             'full_name' => empty($social_networks_data['full_name']) ? '' : $social_networks_data['full_name'],
+            'social_networks' => $social_networks,
             'profile_image_url' => empty($social_networks_data['profile_image_url']) ? '' : $social_networks_data['profile_image_url'],
         ];
 
