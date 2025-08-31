@@ -96,8 +96,9 @@
         <div class="oapp-content">
             <div class="oapp-profile-section">
                     <?php if (!empty($profile_image_url)) : ?>
-                        <img src="<?php echo htmlspecialchars($profile_image_url); ?>"
-                         alt="Profile Picture"
+                        <img src="<?php echo Djebel_App_HTML::encodeEntities($profile_image_url); ?>"
+                         alt="Profile Picture <?php echo empty($full_name) ? '' : Djebel_App_HTML::encodeEntities($full_name);?>"
+                         title="<?php echo empty($full_name) ? '' : Djebel_App_HTML::encodeEntities($full_name);?>"
                          class="rounded-circle mb-3 oapp-profile-pic" />
                     <?php endif; ?>
 
