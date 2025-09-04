@@ -72,6 +72,11 @@ class Djebel_Plugin_Creator_Links {
             'color' => '#e4405f',
             'hover_color' => '#c13584',
         ],
+        'telegram' => [
+            'svg' => '<path d="M21.73 4.73L2.27 11.27c-.94.35-.9 1.63.04 1.91l5.34 1.6 12.46-7.66c.25-.15.49.19.29.4L9.46 16.38c-.14.14-.19.36-.11.56l1.6 4.32c.31.83 1.45.78 1.69-.08L21.73 4.73z"></path>',
+            'color' => '#0088cc',
+            'hover_color' => '#006ba3',
+        ],
     ];
 
     public function renderLinks()
