@@ -90,41 +90,43 @@ class Djebel_Plugin_Creator_Links {
         $cfg_social_quick_networks = $options_obj->get('social_quick_networks');
         $cfg_social_quick_networks = empty($cfg_social_quick_networks) ? [] : (array) $cfg_social_quick_networks;
         
-        foreach ($this->social_networks_arr as $network => $network_data) {
-            if (!isset($cfg_social_quick_networks[$network])) {
+        foreach ($cfg_social_quick_networks as $network => $config) {
+            // Skip if network definition doesn't exist in our SVG map
+            if (empty($this->social_networks_arr[$network])) {
                 continue;
             }
-            
-            $config = $cfg_social_quick_networks[$network];
-            
+
             // Skip if not enabled or no URL provided
             if (empty($config['url']) || (isset($config['enabled']) && empty($config['enabled']))) {
                 continue;
             }
 
+            $network_data = $this->social_networks_arr[$network];
+
             // Merge configuration with SVG data
-            $social_quick_networks[$network] = array_merge($network_data, ['url' => $config['url']]);
+            $social_quick_networks[$network] = array_merge($network_data, $config);
         }
 
-        // Process regular social networks - maintain order from social_networks_arr
+        // Process regular social networks
         $social_networks = [];
         $cfg_social_networks = $options_obj->get('social_networks');
         $cfg_social_networks = empty($cfg_social_networks) ? [] : (array) $cfg_social_networks;
-        
-        foreach ($this->social_networks_arr as $network => $network_data) {
-            if (!isset($cfg_social_networks[$network])) {
+
+        foreach ($cfg_social_networks as $network => $config) {
+            // Skip if network definition doesn't exist in our SVG map
+            if (empty($this->social_networks_arr[$network])) {
                 continue;
             }
-            
-            $config = $cfg_social_networks[$network];
 
             // Skip if not enabled or no URL provided
             if (empty($config['url']) || (isset($config['enabled']) && empty($config['enabled']))) {
                 continue;
             }
 
+            $network_data = $this->social_networks_arr[$network];
+
             // Merge configuration with SVG data
-            $social_networks[$network] = array_merge($network_data, ['url' => $config['url']]);
+            $social_networks[$network] = array_merge($network_data, $config);
         }
 
         $social_networks_data = $options_obj->get('social_networks_data');
