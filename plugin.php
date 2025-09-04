@@ -84,15 +84,39 @@ class Djebel_Plugin_Creator_Links {
         $options_obj = Dj_App_Options::getInstance();
 
         $ctx = [];
+        
+        // Process quick social networks - maintain order from social_networks_arr
+        $social_quick_networks = [];
+        $cfg_social_quick_networks = $options_obj->get('social_quick_networks');
+        $cfg_social_quick_networks = empty($cfg_social_quick_networks) ? [] : (array) $cfg_social_quick_networks;
+        
+        foreach ($this->social_networks_arr as $network => $network_data) {
+            if (!isset($cfg_social_quick_networks[$network])) {
+                continue;
+            }
+            
+            $config = $cfg_social_quick_networks[$network];
+            
+            // Skip if not enabled or no URL provided
+            if (empty($config['url']) || (isset($config['enabled']) && empty($config['enabled']))) {
+                continue;
+            }
+
+            // Merge configuration with SVG data
+            $social_quick_networks[$network] = array_merge($network_data, ['url' => $config['url']]);
+        }
+
+        // Process regular social networks - maintain order from social_networks_arr
         $social_networks = [];
         $cfg_social_networks = $options_obj->get('social_networks');
         $cfg_social_networks = empty($cfg_social_networks) ? [] : (array) $cfg_social_networks;
-        // Get enabled social networks and their URLs
-        foreach ($cfg_social_networks as $network => $config) {
-            // Skip if network definition doesn't exist in our SVG map
-            if (empty($this->social_networks_arr[$network])) {
+        
+        foreach ($this->social_networks_arr as $network => $network_data) {
+            if (!isset($cfg_social_networks[$network])) {
                 continue;
             }
+            
+            $config = $cfg_social_networks[$network];
 
             // Skip if not enabled or no URL provided
             if (empty($config['url']) || (isset($config['enabled']) && empty($config['enabled']))) {
@@ -100,10 +124,7 @@ class Djebel_Plugin_Creator_Links {
             }
 
             // Merge configuration with SVG data
-            $social_networks[$network] = array_merge(
-                $this->social_networks_arr[$network],
-                ['url' => $config['url']],
-            );
+            $social_networks[$network] = array_merge($network_data, ['url' => $config['url']]);
         }
 
         $social_networks_data = $options_obj->get('social_networks_data');
@@ -112,6 +133,7 @@ class Djebel_Plugin_Creator_Links {
             'bio' => empty($social_networks_data['bio']) ? '' : $social_networks_data['bio'],
             'full_name' => empty($social_networks_data['full_name']) ? '' : $social_networks_data['full_name'],
             'social_networks' => $social_networks,
+            'social_quick_networks' => $social_quick_networks,
             'profile_image_url' => empty($social_networks_data['profile_image_url']) ? '' : $social_networks_data['profile_image_url'],
         ];
 
@@ -129,15 +151,24 @@ class Djebel_Plugin_Creator_Links {
     public function outputCSS()
     {
         $options_obj = Dj_App_Options::getInstance();
+        
+        // Get both regular and quick social networks
         $cfg_social_networks = $options_obj->get("social_networks");
         $cfg_social_networks = empty($cfg_social_networks) ? [] : (array) $cfg_social_networks;
+        
+        $cfg_social_quick_networks = $options_obj->get("social_quick_networks");
+        $cfg_social_quick_networks = empty($cfg_social_quick_networks) ? [] : (array) $cfg_social_quick_networks;
 
         echo "<style>\n";
         echo ".oapp-social-btn { color: white !important; }\n";
+        echo ".oapp-quick-social-btn { color: white !important; }\n";
         
-        // Generate CSS for each enabled social network
-        foreach ($cfg_social_networks as $network => $config) {
-            if (empty($this->social_networks_arr[$network])) {
+        // Merge both types and generate CSS for each enabled network
+        $all_networks = array_merge($cfg_social_networks, $cfg_social_quick_networks);
+        $processed_networks = []; // Track to avoid duplicates
+        
+        foreach ($all_networks as $network => $config) {
+            if (isset($processed_networks[$network]) || empty($this->social_networks_arr[$network])) {
                 continue;
             }
             
@@ -146,8 +177,19 @@ class Djebel_Plugin_Creator_Links {
             }
 
             $network_data = $this->social_networks_arr[$network];
-            printf(".oapp-social-btn[class*='%s'] { background-color: %s; }\n", $network, $network_data["color"]);
-            printf(".oapp-social-btn[class*='%s']:hover { background-color: %s; }\n", $network, $network_data["hover_color"]);
+            
+            // Generate CSS for both button types if network is enabled
+            if (isset($cfg_social_networks[$network])) {
+                printf(".oapp-social-btn[class*='%s'] { background-color: %s; }\n", $network, $network_data["color"]);
+                printf(".oapp-social-btn[class*='%s']:hover { background-color: %s; }\n", $network, $network_data["hover_color"]);
+            }
+            
+            if (isset($cfg_social_quick_networks[$network])) {
+                printf(".oapp-quick-social-btn[class*='%s'] { background-color: %s; }\n", $network, $network_data["color"]);
+                printf(".oapp-quick-social-btn[class*='%s']:hover { background-color: %s; }\n", $network, $network_data["hover_color"]);
+            }
+            
+            $processed_networks[$network] = true;
         }
         
         echo "</style>\n";
