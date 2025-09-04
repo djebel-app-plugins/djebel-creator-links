@@ -31,6 +31,42 @@
             margin-top: 1rem;
         }
 
+        .oapp-quick-social-grid {
+            display: flex;
+            flex-direction: row;
+            gap: 1.2rem;
+            margin: 1.5rem 0;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .oapp-quick-social-btn {
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: white !important;
+            width: 40px;
+            height: 40px;
+        }
+
+        .oapp-quick-social-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .oapp-quick-social-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+        }
+
         .oapp-name {
             font-size: 2.5rem;
             color: #333;
@@ -90,6 +126,7 @@
     $bio = empty($ctx['bio']) ? '' : $ctx['bio'];
     $full_name = empty($ctx['full_name']) ? '' : $ctx['full_name'];
     $social_networks = $ctx['social_networks'];
+    $social_quick_networks = empty($ctx['social_quick_networks']) ? [] : $ctx['social_quick_networks'];
     $profile_image_url = empty($ctx['profile_image_url']) ? '' : $ctx['profile_image_url'];
     ?>
 
@@ -109,6 +146,28 @@
 
                     <?php if (!empty($bio)) : ?>
                         <div class="oapp-bio"><?php echo htmlspecialchars($bio); ?></div>
+                    <?php endif; ?>
+
+                    <?php if (!empty($social_quick_networks)) : ?>
+                        <div class="oapp-quick-social-grid">
+                            <?php foreach ($social_quick_networks as $network => $data): ?>
+                                <a href="<?php echo htmlspecialchars($data['url']); ?>"
+                                   target="_blank"
+                                   class="oapp-quick-social-btn oapp-<?php echo $network; ?>-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" 
+                                         width="18" 
+                                         height="18" 
+                                         viewBox="0 0 24 24" 
+                                         fill="none"
+                                         stroke="currentColor" 
+                                         stroke-width="2" 
+                                         stroke-linecap="round" 
+                                         stroke-linejoin="round">
+                                        <?php echo $data['svg']; ?>
+                                    </svg>
+                                </a>
+                            <?php endforeach; ?>
+                        </div>
                     <?php endif; ?>
 
                     <div class="oapp-social-grid">
