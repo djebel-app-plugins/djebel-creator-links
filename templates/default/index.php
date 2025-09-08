@@ -6,14 +6,14 @@
 
         .oapp-profile-pic {
             width: 150px;
-            height: 150px;
+            max-height: 200px;
             object-fit: cover;
         }
 
         .oapp-container {
             max-width: 600px;
             margin: 0 auto;
-            padding: 2rem 1rem;
+            padding: 1rem 1rem;
         }
 
         .oapp-content {
